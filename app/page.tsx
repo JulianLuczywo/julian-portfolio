@@ -1,7 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, Briefcase, ArrowUpRight } from "lucide-react";
+import {
+  MapPin,
+  Briefcase,
+  ArrowUpRight,
+  Github,
+  Linkedin,
+  Twitter,
+  Mail,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import TypewriterText from "../components/TypewriterText";
 
@@ -9,9 +17,9 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#0d0f0d] text-gray-300 font-mono">
       {/* Main Content */}
-      <main className="max-w-2xl mx-auto px-6 pb-16">
+      <main className="max-w-4xl mx-auto px-6 pb-8">
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-16">
           <h1 className="text-4xl font-bold text-white mb-4">
             <TypewriterText text="Julian Luczywo" />
           </h1>
@@ -27,17 +35,41 @@ export default function HomePage() {
           </div>
 
           <p className="text-gray-300 leading-relaxed">
-            I'm a passionate developer who loves building things and solving
-            problems. I enjoy working with modern technologies and creating
-            meaningful digital experiences. when i'm not coding, you'll find me
-            exploring new frameworks, contributing to open source, or writing
-            about tech.
+            i'm a 23 year old developer living budapest, hungary. i'm half
+            polish and half korean. i love building and solving problems. i
+            enjoy working on full-stack web applications, creating meaningful
+            digital experiences or optimising businesses. if i'm not coding then
+            i'm probably obsessing over tea/coffee or playing golf/padel.
           </p>
         </div>
 
+        {/* Tech Stack */}
+        <section className="mb-16">
+          <h2 className="text-[#899878] text-xl font-bold mb-6">
+            * tech stack
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            {[
+              "nextjs",
+              "typescript",
+              "tailwindcss",
+              "react",
+              "node.js",
+              "postgresql",
+            ].map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 bg-gray-900/50 border border-gray-800 rounded-full text-sm text-gray-300 hover:border-gray-700 transition-colors"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </section>
+
         {/* Work Section */}
-        <section className="mb-12">
-          <h2 className="text-[#344532] text-xl font-bold mb-6">* work</h2>
+        <section className="mb-16">
+          <h2 className="text-[#899878] text-xl font-bold mb-6">* work</h2>
 
           <div className="space-y-8">
             <div>
@@ -78,9 +110,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h3 className="text-white font-semibold text-lg mb-1 hover:text-[#899878] transition-colors cursor-pointer">
-                UTOPIUM
-              </h3>
+              <h3 className="text-white font-semibold text-lg mb-1">UTOPIUM</h3>
               <p className="text-gray-400 text-sm mb-2">
                 Founder/Co-CEO (jan 2024 - jan 2025)
               </p>
@@ -93,8 +123,8 @@ export default function HomePage() {
         </section>
 
         {/* Projects Section */}
-        <section className="mb-12">
-          <h2 className="text-[#344532] text-xl font-bold mb-6">* projects</h2>
+        <section className="mb-16">
+          <h2 className="text-[#899878] text-xl font-bold mb-6">* projects</h2>
 
           <div className="space-y-8">
             <div>
@@ -158,13 +188,39 @@ export default function HomePage() {
               </p>
             </div>
           </div>
+          <div className="flex items-center gap-2 mt-6">
+            <motion.div
+              whileHover="hover"
+              initial="initial"
+              variants={{
+                initial: {},
+                hover: {},
+              }}
+              className="inline-flex items-center gap-1"
+            >
+              <Link
+                href="/projects"
+                className="text-[#899878] hover:underline inline-flex items-center gap-1"
+              >
+                <span>see more projects</span>
+                <motion.div
+                  variants={{
+                    initial: { x: -4, y: 0 },
+                    hover: { x: 2, y: -2 },
+                  }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="inline-flex items-center gap-1"
+                >
+                  <ArrowUpRight size={20} className="text-[#899878]" />
+                </motion.div>
+              </Link>
+            </motion.div>
+          </div>
         </section>
 
         {/* Recent Blog Posts */}
         <section>
-          <h2 className="text-[#344532] text-xl font-bold mb-6">
-            * recent posts
-          </h2>
+          <h2 className="text-[#899878] text-xl font-bold mb-6">* blog</h2>
 
           <div className="space-y-4">
             <Link
@@ -198,6 +254,69 @@ export default function HomePage() {
                 </h3>
                 <span className="text-gray-500 text-sm">oct 2024</span>
               </div>
+            </Link>
+          </div>
+          <div className="flex items-center gap-2 mt-6">
+            <motion.div
+              whileHover="hover"
+              initial="initial"
+              variants={{
+                initial: {},
+                hover: {},
+              }}
+              className="inline-flex items-center gap-1"
+            >
+              <Link
+                href="/blog"
+                className="text-[#899878] hover:underline inline-flex items-center gap-1"
+              >
+                <span>all posts</span>
+                <motion.div
+                  variants={{
+                    initial: { x: -4, y: 0 },
+                    hover: { x: 2, y: -2 },
+                  }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="inline-flex items-center gap-1"
+                >
+                  <ArrowUpRight size={20} className="text-[#899878]" />
+                </motion.div>
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Links */}
+        <section className="mt-16">
+          <h2 className="text-[#899878] text-xl font-bold mb-6">* links</h2>
+          <div className="flex gap-4">
+            <Link
+              href="https://github.com/julianluczywo"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="GitHub"
+            >
+              <Github size={18} />
+            </Link>
+            <Link
+              href="https://linkedin.com/in/julianluczywo"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={18} />
+            </Link>
+            <Link
+              href="https://twitter.com/julianluczywo"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="Twitter"
+            >
+              <Twitter size={18} />
+            </Link>
+            <Link
+              href="mailto:julian@refracted.com"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="Email"
+            >
+              <Mail size={18} />
             </Link>
           </div>
         </section>

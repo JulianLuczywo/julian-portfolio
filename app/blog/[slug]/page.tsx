@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { ArrowLeft, Calendar, Clock } from "lucide-react"
-import { notFound } from "next/navigation"
+import Link from "next/link";
+import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { notFound } from "next/navigation";
 
 // This would typically come from a CMS or markdown files
 const posts = {
@@ -183,32 +183,17 @@ function fetchData<T extends Record<string, unknown>>(
 these practices will help you build more maintainable and type-safe applications.
     `,
   },
-}
+};
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = posts[params.slug as keyof typeof posts]
+  const post = posts[params.slug as keyof typeof posts];
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
   return (
     <div className="min-h-screen bg-[#0d0f0d] text-gray-300 font-mono">
-      {/* Navigation */}
-      <nav className="flex items-center justify-center pt-8 pb-16">
-        <div className="flex items-center gap-6 text-sm">
-          <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-            [h] home
-          </Link>
-          <Link href="/blog" className="text-white">
-            [b] blog
-          </Link>
-          <Link href="/projects" className="text-gray-400 hover:text-white transition-colors">
-            [p] projects
-          </Link>
-        </div>
-      </nav>
-
       {/* Main Content */}
       <main className="max-w-2xl mx-auto px-6 pb-16">
         <div className="mb-8">
@@ -235,9 +220,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         </div>
 
         <article className="prose prose-invert prose-orange max-w-none">
-          <div className="whitespace-pre-line text-gray-300 leading-relaxed">{post.content}</div>
+          <div className="whitespace-pre-line text-gray-300 leading-relaxed">
+            {post.content}
+          </div>
         </article>
       </main>
     </div>
-  )
+  );
 }
