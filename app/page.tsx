@@ -35,11 +35,12 @@ export default function HomePage() {
           </div>
 
           <p className="text-gray-300 leading-relaxed">
-            i'm a 23 year old developer living budapest, hungary. i'm half
+            i'm a 23 year old developer living in budapest, hungary. i'm half
             polish and half korean. i love building and solving problems. i
             enjoy working on full-stack web applications, creating meaningful
             digital experiences or optimising businesses. if i'm not coding then
-            i'm probably obsessing over tea/coffee or playing golf/padel.
+            i'm probably obsessing over tea/coffee, music, or playing
+            golf/padel.
           </p>
         </div>
 
@@ -101,10 +102,10 @@ export default function HomePage() {
                 </motion.div>
               </h3>
               <p className="text-gray-400 text-sm mb-2">
-                Founder/CTO (mar 2025 - present)
+                founder + CTO (mar 2025 - present)
               </p>
               <p className="text-gray-300 leading-relaxed">
-                We create AI-powered tools for businesses to improve their
+                we create AI-powered tools for businesses to improve their
                 workflow and productivity.
               </p>
             </div>
@@ -112,10 +113,10 @@ export default function HomePage() {
             <div>
               <h3 className="text-white font-semibold text-lg mb-1">UTOPIUM</h3>
               <p className="text-gray-400 text-sm mb-2">
-                Founder/Co-CEO (jan 2024 - jan 2025)
+                founder + CTO (jan 2024 - jan 2025)
               </p>
               <p className="text-gray-300 leading-relaxed">
-                Music tech startup for artists to create more revenue by selling
+                music tech startup for artists to create more revenue by selling
                 directly to their fans.
               </p>
             </div>
@@ -141,6 +142,7 @@ export default function HomePage() {
                   <Link
                     href="https://ltwlogistics.com"
                     className="inline-flex items-center gap-1"
+                    target="_blank"
                   >
                     <span>LTW Logistics Order Management System</span>
                     <motion.div
@@ -165,26 +167,74 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h3 className="text-white font-semibold text-lg mb-1">
-                another-project
+              <h3 className="text-white font-semibold text-lg mb-1 hover:text-[#899878] transition-colors cursor-pointer">
+                <motion.div
+                  whileHover="hover"
+                  initial="initial"
+                  variants={{
+                    initial: {},
+                    hover: {},
+                  }}
+                  className="inline-flex items-center gap-1"
+                >
+                  <Link
+                    href="https://vtlogistic.com"
+                    className="inline-flex items-center gap-1"
+                    target="_blank"
+                  >
+                    <span>VT Logistic Kft.</span>
+                    <motion.div
+                      variants={{
+                        initial: { opacity: 0, x: -4 },
+                        hover: { opacity: 1, x: 0 },
+                      }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                    >
+                      <ArrowUpRight size={20} className="text-[#899878]" />
+                    </motion.div>
+                  </Link>
+                </motion.div>
               </h3>
               <p className="text-gray-400 text-sm mb-2">lead developer</p>
               <p className="text-gray-300 leading-relaxed">
-                full-stack web application for task management and team
-                collaboration. features real-time updates, file sharing, and
-                integration with popular productivity tools.
+                Full revamp of the website for logistics company VT Logistic
+                Kft.
               </p>
             </div>
 
             <div>
-              <h3 className="text-white font-semibold text-lg mb-1">
-                side-project
+              <h3 className="text-white font-semibold text-lg mb-1 hover:text-[#899878] transition-colors cursor-pointer">
+                <motion.div
+                  whileHover="hover"
+                  initial="initial"
+                  variants={{
+                    initial: {},
+                    hover: {},
+                  }}
+                  className="inline-flex items-center gap-1"
+                >
+                  <Link
+                    href="https://vtlvam.com"
+                    className="inline-flex items-center gap-1"
+                    target="_blank"
+                  >
+                    <span>VTL Vámügynökség Kft.</span>
+                    <motion.div
+                      variants={{
+                        initial: { opacity: 0, x: -4 },
+                        hover: { opacity: 1, x: 0 },
+                      }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                    >
+                      <ArrowUpRight size={20} className="text-[#899878]" />
+                    </motion.div>
+                  </Link>
+                </motion.div>
               </h3>
-              <p className="text-gray-400 text-sm mb-2">solo project</p>
+              <p className="text-gray-400 text-sm mb-2">lead developer</p>
               <p className="text-gray-300 leading-relaxed">
-                mobile app built with react native for tracking personal habits
-                and goals. includes data visualization, push notifications, and
-                offline support.
+                Full revamp of the website for logistics company VTL
+                Vámügynökség Kft.
               </p>
             </div>
           </div>
@@ -294,6 +344,7 @@ export default function HomePage() {
               href="https://github.com/julianluczywo"
               className="text-gray-400 hover:text-white transition-colors"
               aria-label="GitHub"
+              target="_blank"
             >
               <Github size={18} />
             </Link>
@@ -301,6 +352,7 @@ export default function HomePage() {
               href="https://linkedin.com/in/julianluczywo"
               className="text-gray-400 hover:text-white transition-colors"
               aria-label="LinkedIn"
+              target="_blank"
             >
               <Linkedin size={18} />
             </Link>
@@ -308,6 +360,7 @@ export default function HomePage() {
               href="https://twitter.com/julianluczywo"
               className="text-gray-400 hover:text-white transition-colors"
               aria-label="Twitter"
+              target="_blank"
             >
               <Twitter size={18} />
             </Link>
@@ -315,6 +368,7 @@ export default function HomePage() {
               href="mailto:julian@refracted.com"
               className="text-gray-400 hover:text-white transition-colors"
               aria-label="Email"
+              target="_blank"
             >
               <Mail size={18} />
             </Link>
