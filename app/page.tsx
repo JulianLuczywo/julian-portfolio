@@ -12,8 +12,26 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import TypewriterText from "../components/TypewriterText";
+import { useState, useEffect } from "react";
+import { formatDate, type BlogPostMetadata } from "@/lib/types";
 
 export default function HomePage() {
+  const [latestPosts, setLatestPosts] = useState<BlogPostMetadata[]>([]);
+
+  useEffect(() => {
+    const loadLatestPosts = async () => {
+      try {
+        const response = await fetch("/api/blog");
+        const posts = await response.json();
+        setLatestPosts(posts.slice(0, 3));
+      } catch (error) {
+        console.error("Failed to load blog posts:", error);
+      }
+    };
+
+    loadLatestPosts();
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#0d0f0d] text-gray-300 font-mono">
       {/* Main Content */}
@@ -273,38 +291,45 @@ export default function HomePage() {
           <h2 className="text-[#899878] text-xl font-bold mb-6">* blog</h2>
 
           <div className="space-y-4">
-            <Link
-              href="/blog/building-scalable-react-apps"
-              className="block group"
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="text-white group-hover:text-[#344532] transition-colors">
-                  building scalable react applications
-                </h3>
-                <span className="text-gray-500 text-sm">dec 2024</span>
+            {latestPosts.length > 0 ? (
+              latestPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="block group"
+                >
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-white group-hover:text-[#899878] transition-colors">
+                      {post.title}
+                    </h3>
+                    <span className="text-gray-500 text-sm">
+                      {formatDate(post.date)}
+                    </span>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="space-y-4">
+                <div className="animate-pulse">
+                  <div className="flex items-center justify-between">
+                    <div className="h-4 bg-gray-800 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-800 rounded w-16"></div>
+                  </div>
+                </div>
+                <div className="animate-pulse">
+                  <div className="flex items-center justify-between">
+                    <div className="h-4 bg-gray-800 rounded w-2/3"></div>
+                    <div className="h-4 bg-gray-800 rounded w-16"></div>
+                  </div>
+                </div>
+                <div className="animate-pulse">
+                  <div className="flex items-center justify-between">
+                    <div className="h-4 bg-gray-800 rounded w-4/5"></div>
+                    <div className="h-4 bg-gray-800 rounded w-16"></div>
+                  </div>
+                </div>
               </div>
-            </Link>
-
-            <Link
-              href="/blog/typescript-best-practices"
-              className="block group"
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="text-white group-hover:text-[#344532] transition-colors">
-                  typescript best practices for large codebases
-                </h3>
-                <span className="text-gray-500 text-sm">nov 2024</span>
-              </div>
-            </Link>
-
-            <Link href="/blog/nextjs-performance" className="block group">
-              <div className="flex items-center justify-between">
-                <h3 className="text-white group-hover:text-[#344532] transition-colors">
-                  optimizing next.js applications for performance
-                </h3>
-                <span className="text-gray-500 text-sm">oct 2024</span>
-              </div>
-            </Link>
+            )}
           </div>
           <div className="flex items-center gap-2 mt-6">
             <motion.div

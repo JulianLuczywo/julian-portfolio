@@ -6,7 +6,7 @@ export const mdxComponents: MDXRemoteProps["components"] = {
       className="text-2xl font-bold text-white mb-6 mt-8 first:mt-0"
       {...props}
     >
-      *{children}
+      * {children}
     </h1>
   ),
   h2: ({ children, ...props }: { children: React.ReactNode }) => (
