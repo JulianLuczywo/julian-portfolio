@@ -1,0 +1,73 @@
+---
+title: "hetzner object storage in nextjs"
+description: "Learn how to use hetzner object storage in nextjs"
+date: "2024-12-15"
+tags: ["nextjs", "hetzner", "object storage"]
+published: true
+---
+
+Hetzner object storage is a cost-effective and reliable solution for storing static assets in a distributed environment. It provides a simple and efficient way to store and serve files, making it an ideal choice for Next.js applications.
+
+## setup
+
+First, you need to create an object storage bucket in the Hetzner console. Then, you can use the `@aws-sdk/client-s3` package to interact with the object storage.
+
+```jsx
+import { S3Client } from "@aws-sdk/client-s3";
+
+const s3 = new S3Client({
+  region: "eu-central-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
+```
+
+## upload files
+
+```jsx
+import { S3Client } from "@aws-sdk/client-s3";
+
+const s3 = new S3Client({
+  region: "eu-central-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
+
+const uploadFile = async (file) => {
+  const uploadParams = {
+    Bucket: "your-bucket-name",
+    Key: file.name,
+    Body: file,
+  };
+
+  await s3.send(new PutObjectCommand(uploadParams));
+};
+```
+
+## download files
+
+```jsx
+import { S3Client } from "@aws-sdk/client-s3";
+
+const s3 = new S3Client({
+  region: "eu-central-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
+
+const downloadFile = async (key) => {
+  const downloadParams = {
+    Bucket: "your-bucket-name",
+    Key: key,
+  };
+
+  const response = await s3.send(new GetObjectCommand(downloadParams));
+  return response.Body;
+};
+```

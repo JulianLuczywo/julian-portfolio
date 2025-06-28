@@ -1,0 +1,119 @@
+---
+title: "next.js performance optimization techniques"
+description: "Discover advanced techniques to optimize your Next.js applications for better performance and user experience."
+date: "2025-01-15"
+tags: ["nextjs", "performance", "optimization", "web-development"]
+published: true
+---
+
+Next.js provides many built-in optimizations, but there are additional techniques you can use to squeeze out even better performance. Here's what I've learned from optimizing production applications.
+
+## image optimization
+
+Next.js Image component is powerful, but you need to use it correctly:
+
+```jsx
+import Image from 'next/image'
+
+// Good: Specify dimensions and use priority for above-fold images
+<Image
+  src="/hero-image.jpg"
+  alt="Hero image"
+  width={800}
+  height={600}
+  priority
+  placeholder="blur"
+  blurDataURL="data:image/jpeg;base64,..."
+/>
+
+// Better: Use responsive images
+<Image
+  src="/hero-image.jpg"
+  alt="Hero image"
+  fill
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  priority
+/>
+```
+
+## code splitting strategies
+
+Implement strategic code splitting:
+
+```jsx
+// Dynamic imports for heavy components
+import dynamic from "next/dynamic";
+
+const HeavyChart = dynamic(() => import("../components/HeavyChart"), {
+  loading: () => <ChartSkeleton />,
+  ssr: false, // Skip SSR for client-only components
+});
+
+// Route-level splitting
+const AdminPanel = dynamic(() => import("../components/AdminPanel"));
+```
+
+## server-side optimizations
+
+Optimize your API routes and data fetching:
+
+```typescript
+// Use proper caching headers
+export async function GET() {
+  const data = await fetchData();
+
+  return NextResponse.json(data, {
+    headers: {
+      "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+    },
+  });
+}
+
+// Implement proper error boundaries
+export default function Page() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <DataComponent />
+    </Suspense>
+  );
+}
+```
+
+## bundle analysis
+
+Regularly analyze your bundle:
+
+```bash
+# Install bundle analyzer
+npm install @next/bundle-analyzer
+
+# Add to next.config.js
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+})
+
+module.exports = withBundleAnalyzer({
+  // your config
+})
+
+# Run analysis
+ANALYZE=true npm run build
+```
+
+## performance monitoring
+
+Set up proper monitoring:
+
+```jsx
+// pages/_app.js
+export function reportWebVitals(metric) {
+  // Send to analytics
+  if (metric.label === "web-vital") {
+    analytics.track(metric.name, metric.value);
+  }
+}
+```
+
+## conclusion
+
+Performance optimization is an ongoing process. Focus on measuring first, then optimizing the biggest bottlenecks. These techniques will help you build faster, more responsive Next.js applications.
