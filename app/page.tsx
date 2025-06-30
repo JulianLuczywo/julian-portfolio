@@ -105,6 +105,7 @@ export default function HomePage() {
                   <Link
                     href="https://refractedai.com"
                     className="inline-flex items-center gap-1"
+                    target="_blank"
                   >
                     <span>RefractedAI</span>
                     <motion.div
@@ -123,8 +124,8 @@ export default function HomePage() {
                 founder + CTO (mar 2025 - present)
               </p>
               <p className="text-gray-300 leading-relaxed">
-                we create AI-powered tools for businesses to improve their
-                workflow and productivity.
+                we create AI-powered tools + full-stack applications for
+                businesses to improve their workflow and productivity.
               </p>
             </div>
 
@@ -200,7 +201,7 @@ export default function HomePage() {
                     className="inline-flex items-center gap-1"
                     target="_blank"
                   >
-                    <span>VT Logistic Kft.</span>
+                    <span>VT Logistic Kft. website</span>
                     <motion.div
                       variants={{
                         initial: { opacity: 0, x: -4 },
@@ -236,7 +237,7 @@ export default function HomePage() {
                     className="inline-flex items-center gap-1"
                     target="_blank"
                   >
-                    <span>VTL Vámügynökség Kft.</span>
+                    <span>VTL Vámügynökség Kft. website</span>
                     <motion.div
                       variants={{
                         initial: { opacity: 0, x: -4 },
