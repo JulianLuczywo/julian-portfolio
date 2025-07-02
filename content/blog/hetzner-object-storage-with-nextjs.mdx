@@ -1,0 +1,119 @@
+---
+title: "hetzner object storage with nextjs"
+description: "Learn how to use hetzner object storage with nextjs"
+date: "2024-12-15"
+tags: ["nextjs", "hetzner", "object storage"]
+published: true
+---
+
+I've been working on an OMS recently and come across an issue of storing files in a distributed environment. First, when I set it up it was
+saving the files in the local storage, but then I realised that it would not be a good idea to store the files in the local storage, so I
+decided to use Hetzner object storage.
+
+I looked into alternative file storing systems from uploadthing, cloudinary, and AWS S3. I saw that AWS S3 would be good but since I was already
+using Hetzner for my hosting, I decided to use Hetzner object storage, to keep it all in one system.
+
+One thing I ran into whilst setting up the object storage with my next.js application was that there wasn't any proper documentation about it.
+Most of the documentation was for AWS S3, so it was a lot of trial and error to get it working, but I finally got it working. So, I decided to write this blog post to help others who are
+setting up Hetzner object storage with their next.js application.
+
+## setup
+
+First, you need to create an object storage bucket in the Hetzner console. Then, you can use the `@aws-sdk/client-s3` package to interact with the object storage.
+
+### install dependencies
+
+```bash
+npm install @aws-sdk/client-s3
+```
+
+### database update
+
+Make sure to update your database schema to include a column for the file path. Should be something like this:
+
+```prisma
+model File {
+  id        String   @id @default(cuid())
+  fileName      String
+  fileSize      Int
+  mimeType      String
+  filePath      String
+  s3Url         String?
+  uploadedBy    String
+  uploadedAt    DateTime @default(now())
+
+  // add your relations
+  // add your indexes
+}
+```
+
+### create s3 client
+
+```tsx
+import { S3Client } from "@aws-sdk/client-s3";
+
+const s3 = new S3Client({
+  region: "us-east-1", // Must include this or the SDK will throw an error
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+  // This option configures the S3 client to use the "path style" access
+  // scheme, where the bucket name is included in the URL path rather than
+  // as a subdomain. This is needed because Hetzner Object Storage does not
+  // support DNS-style bucket names. See:
+  // https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html#VirtualHostingSpecifyBucket
+
+  forcePathStyle: true,
+});
+```
+
+## upload files
+
+```tsx
+import { S3Client } from "@aws-sdk/client-s3";
+
+const s3 = new S3Client({
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+  forcePathStyle: true,
+});
+
+const uploadFile = async (file) => {
+  const uploadParams = {
+    Bucket: "your-bucket-name",
+    Key: file.name,
+    Body: file,
+  };
+
+  await s3.send(new PutObjectCommand(uploadParams));
+};
+```
+
+## download files
+
+```tsx
+import { S3Client } from "@aws-sdk/client-s3";
+
+const s3 = new S3Client({
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+  forcePathStyle: true,
+});
+
+const downloadFile = async (key) => {
+  const downloadParams = {
+    Bucket: "your-bucket-name",
+    Key: key,
+  };
+
+  const response = await s3.send(new GetObjectCommand(downloadParams));
+  return response.Body;
+};
+```
