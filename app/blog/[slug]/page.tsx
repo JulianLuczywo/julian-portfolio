@@ -4,6 +4,8 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { getPostBySlug } from "@/lib/blog";
 import { formatDate } from "@/lib/types";
 import { mdxComponents } from "@/components/mdx-components";
+import { Github, Linkedin, Twitter } from "lucide-react";
+import ShareButton from "@/components/ShareButton";
 
 export default async function BlogPost({
   params,
@@ -22,12 +24,17 @@ export default async function BlogPost({
       <div className="max-w-5xl mx-auto px-6 py-12">
         {/* Navigation */}
         <nav className="mb-12">
-          <Link
-            href="/blog"
-            className="text-gray-400 hover:text-white transition-colors text-sm"
-          >
-            ← back to blog
-          </Link>
+          <div className="flex justify-between">
+            <Link
+              href="/blog"
+              className="text-gray-400 hover:text-white transition-colors text-sm"
+            >
+              ← back to blog
+            </Link>
+            <div className="flex gap-2 items-center">
+              <ShareButton />
+            </div>
+          </div>
         </nav>
 
         {/* Article */}
@@ -62,6 +69,37 @@ export default async function BlogPost({
             <MDXRemote source={post.content} components={mdxComponents} />
           </div>
         </article>
+
+        <footer className="mt-16">
+          <div className="flex justify-between">
+            <Link
+              href="/blog"
+              className="text-gray-400 hover:text-white transition-colors text-sm"
+            >
+              ← back to blog
+            </Link>
+            <div className="flex gap-4">
+              <Link
+                href="https://github.com/julianluczywo/"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Github size={20} />
+              </Link>
+              <Link
+                href="https://twitter.com/julianluczywo"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Twitter size={20} />
+              </Link>
+              <Link
+                href="https://linkedin.com/in/julianluczywo"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <Linkedin size={20} />
+              </Link>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );

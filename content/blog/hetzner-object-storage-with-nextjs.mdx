@@ -1,9 +1,9 @@
 ---
-title: "hetzner object storage with nextjs"
+title: "hetzner object storage with nextjs (not finished)"
 description: "Learn how to use hetzner object storage with nextjs"
 date: "2025-06-28"
 tags: ["nextjs", "hetzner", "object storage", "s3 storage"]
-published: no
+published: false
 ---
 
 I've been working on an OMS recently and come across an issue of storing files in a distributed environment. First, when I set it up it was
@@ -68,7 +68,9 @@ const s3 = new S3Client({
 });
 ```
 
-## upload files
+`Make sure to add the region as "us-east-1" or some filler, or else it will throw an error, and no file will be created. This goes the same for uploading, fetching and deleting.`
+
+### upload files
 
 ```tsx
 import { S3Client } from "@aws-sdk/client-s3";
@@ -93,7 +95,9 @@ const uploadFile = async (file) => {
 };
 ```
 
-## download files
+### download files
+
+Make sure to add the logic first to find the file directory in your database.
 
 ```tsx
 import { S3Client } from "@aws-sdk/client-s3";
