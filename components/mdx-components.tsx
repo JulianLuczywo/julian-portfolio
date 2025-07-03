@@ -1,26 +1,27 @@
 import { MDXRemoteProps } from "next-mdx-remote";
+import CodeBlock from "./CodeBlock";
 
 export const mdxComponents: MDXRemoteProps["components"] = {
   h1: ({ children, ...props }: { children: React.ReactNode }) => (
     <h1
-      className="text-2xl font-bold text-white mb-6 mt-8 first:mt-0"
+      className="text-3xl font-bold text-white mb-6 mt-8 first:mt-0"
       {...props}
     >
-      * {children}
+      <span className="text-[#899878]">*</span> {children}
     </h1>
   ),
   h2: ({ children, ...props }: { children: React.ReactNode }) => (
-    <h2 className="text-xl font-semibold text-white mb-4 mt-8" {...props}>
+    <h2 className="text-2xl font-semibold text-white mb-4 mt-8" {...props}>
       {children}
     </h2>
   ),
   h3: ({ children, ...props }: { children: React.ReactNode }) => (
-    <h3 className="text-lg font-medium text-white mb-3 mt-6" {...props}>
+    <h3 className="text-xl font-medium text-white mb-3 mt-6" {...props}>
       {children}
     </h3>
   ),
   p: ({ children, ...props }: { children: React.ReactNode }) => (
-    <p className="text-gray-300 leading-relaxed mb-4" {...props}>
+    <p className="text-gray-300 leading-7 mb-6" {...props}>
       {children}
     </p>
   ),
@@ -45,16 +46,26 @@ export const mdxComponents: MDXRemoteProps["components"] = {
       {children}
     </li>
   ),
-  pre: ({ children, ...props }: { children: React.ReactNode }) => (
-    <div className="my-6">
-      <pre
-        className="bg-[#222725] border border-[#222725] rounded-lg p-4 overflow-x-auto"
-        {...props}
-      >
-        {children}
-      </pre>
-    </div>
-  ),
+  pre: ({ children, ...props }: { children: React.ReactNode }) => {
+    // Extract className from code element if it exists
+    const codeElement = Array.isArray(children)
+      ? children.find((child: any) =>
+          child?.props?.className?.startsWith("language-")
+        )
+      : children;
+
+    const className = codeElement?.props?.className;
+
+    if (className) {
+      return (
+        <CodeBlock className={className} {...props}>
+          {codeElement.props.children}
+        </CodeBlock>
+      );
+    }
+
+    return <CodeBlock {...props}>{children}</CodeBlock>;
+  },
   code: ({
     children,
     className,
@@ -63,7 +74,7 @@ export const mdxComponents: MDXRemoteProps["components"] = {
     children: React.ReactNode;
     className?: string;
   }) => {
-    const isInline = !className;
+    const isInline = !className?.startsWith("language-");
 
     if (isInline) {
       return (
@@ -76,11 +87,9 @@ export const mdxComponents: MDXRemoteProps["components"] = {
       );
     }
 
+    // For block code, this will be handled by the pre component
     return (
-      <code
-        className="text-sm text-gray-300 font-mono leading-relaxed"
-        {...props}
-      >
+      <code className={className} {...props}>
         {children}
       </code>
     );

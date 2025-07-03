@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, ExternalLink, Github, Star } from "lucide-react";
+import TypewriterText from "@/components/TypewriterText";
 
 export default function ProjectsPage() {
   const projects = [
@@ -25,7 +26,7 @@ export default function ProjectsPage() {
       name: "VT Logistic Website",
       description:
         "full website revamp for hungarian logistics company with modern design and improved user experience.",
-      role: "lead developer",
+      role: "creator and maintainer",
       tech: ["next.js", "typescript", "tailwindcss", "framer-motion"],
       github: null,
       demo: "https://vtlogistic.com",
@@ -36,7 +37,7 @@ export default function ProjectsPage() {
       name: "VTL Vámügynökség Website",
       description:
         "complete website redesign for customs brokerage company with focus on professional presentation and user engagement.",
-      role: "lead developer",
+      role: "creator and maintainer",
       tech: ["next.js", "typescript", "tailwindcss", "framer-motion"],
       github: null,
       demo: "https://vtlvam.com",
@@ -58,9 +59,12 @@ export default function ProjectsPage() {
           </Link>
 
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-[#899878] mb-3">
-              * projects
-            </h1>
+            <div className="mb-3">
+              <TypewriterText
+                text="* projects"
+                className="text-[#899878] text-4xl font-bold"
+              />
+            </div>
             <p className="text-gray-400 text-lg">
               things i've built and contributed to
             </p>

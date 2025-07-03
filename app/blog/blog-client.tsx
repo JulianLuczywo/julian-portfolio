@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, ArrowUp, ArrowDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { formatDate, type BlogPostMetadata } from "@/lib/types";
+import TypewriterText from "@/components/TypewriterText";
 
 type BlogPageClientProps = {
   posts: BlogPostMetadata[];
@@ -88,7 +89,12 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
           </Link>
 
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-[#899878] mb-3">* blog</h1>
+            <div className="mb-3">
+              <TypewriterText
+                text="* blog"
+                className="text-[#899878] text-4xl font-bold"
+              />
+            </div>
             <p className="text-gray-400 text-lg mb-6">
               thoughts on development, technology, and building things
             </p>
