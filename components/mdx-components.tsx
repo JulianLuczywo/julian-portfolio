@@ -1,5 +1,5 @@
 import { MDXRemoteProps } from "next-mdx-remote";
-import CodeBlock from "./CodeBlock";
+import { CodeBlock } from "./CodeBlock";
 
 export const mdxComponents: MDXRemoteProps["components"] = {
   h1: ({ children, ...props }: { children: React.ReactNode }) => (
