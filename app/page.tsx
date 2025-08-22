@@ -63,18 +63,18 @@ export default function HomePage() {
         </div>
 
         {/* Tech Stack */}
-        <section className="mb-16">
+        {/* <section className="mb-16">
           <h2 className="text-[#899878] text-xl font-bold mb-6">
             * tech stack
           </h2>
           <div className="flex flex-wrap gap-3">
             {[
-              "nextjs",
               "typescript",
               "tailwindcss",
               "react",
               "node.js",
               "postgresql",
+              "python",
             ].map((tech) => (
               <span
                 key={tech}
@@ -84,7 +84,7 @@ export default function HomePage() {
               </span>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Work Section */}
         <section className="mb-16">
