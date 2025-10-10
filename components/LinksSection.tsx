@@ -3,11 +3,14 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import KoreanSymbol from "./KoreanSymbol";
 
 type LinkItem = {
   label: string;
   labelKo?: string;
   href: string;
+  target?: string;
+  rel?: string;
   external?: boolean;
 };
 
@@ -22,31 +25,46 @@ export default function LinksSection() {
     {
       items: [
         { label: "Journal", labelKo: "일지", href: "/blog" },
-        { label: "Projects", labelKo: "프로젝트", href: "/projects" },
         { label: "Updates", labelKo: "업데이트", href: "/blog" },
+        { label: "Projects", labelKo: "프로젝트", href: "/projects" },
       ],
     },
     {
       items: [
         { label: "Computer", labelKo: "컴퓨터", href: "#" },
+        // { label: "Desk", href: "#" },
+        // { label: "Keyboard", href: "#" },
+        // { label: "Command Line", href: "#" },
+        // { label: "Infrastructure", href: "#" },
+        // { label: "EDC", href: "#" },
+        // { label: "Phone", href: "#" },
+        // { label: "Camera", href: "#" },
         { label: "Audio", labelKo: "오디오", href: "#" },
-        { label: "Workout", labelKo: "운동", href: "#" },
         { label: "Coffee", labelKo: "커피", href: "#" },
-        { label: "Library", labelKo: "서재", href: "#" },
+        { label: "Workout", labelKo: "운동", href: "#" },
       ],
     },
     {
       items: [
+        // { label: "Travel", href: "#" },
+        // { label: "Luggage", href: "#" },
+        // { label: "Belongings", href: "#" },
+        // { label: "Locations", href: "#" },
+        { label: "Library", labelKo: "서재", href: "#" },
         { label: "Bookmarks", labelKo: "북마크", href: "#" },
         {
           label: "Contact",
           labelKo: "연락",
           href: "mailto:julian@refractedai.com",
+          target: "_blank",
+          rel: "noopener noreferrer",
           external: true,
         },
         {
           label: "GitHub",
           href: "https://github.com/julianluczywo",
+          target: "_blank",
+          rel: "noopener noreferrer",
           external: true,
         },
         { label: "FAQ", href: "#" },
@@ -55,249 +73,83 @@ export default function LinksSection() {
   ];
 
   return (
-    <section className="pt-8 pb-16 mt-8 font-mono">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-12 md:gap-16 items-start">
-          {/* Korean Taeguk-inspired SVG */}
-          <Link href="/">
+    <section className="pt-6 pb-12 mt-6 md:pt-8 md:pb-16 md:mt-8 font-mono">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        {/* Mobile Layout */}
+        <div className="md:hidden">
+          <div className="flex flex-col items-center gap-6">
+            {/* Korean Symbol - Centered and Bigger on Mobile */}
+            <Link href="/">
+              <motion.div
+                className="cursor-pointer"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <div className="relative w-32 h-32 flex items-center justify-center">
+                  <KoreanSymbol
+                    isHovered={isHovered}
+                    size={128}
+                    layoutId="main-korean-symbol"
+                  />
+                </div>
+              </motion.div>
+            </Link>
+
+            {/* Links Grid - 2 Columns Below SVG on Mobile */}
+            <div className="w-full grid grid-cols-2 gap-x-8 gap-y-2">
+              {linksColumns.map((column, colIndex) => (
+                <motion.div
+                  key={colIndex}
+                  className="space-y-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 + colIndex * 0.1 }}
+                >
+                  {column.items.map((link, linkIndex) => (
+                    <div key={linkIndex}>
+                      <Link
+                        href={link.href}
+                        className="text-gray-300 hover:bg-[#899878] hover:text-[#222725] px-1 py-0.5 transition-all duration-200 text-xs font-medium underline underline-offset-2 decoration-gray-600 hover:decoration-gray-400 inline-block"
+                        target={link.external ? "_blank" : undefined}
+                        rel={link.external ? "noopener noreferrer" : undefined}
+                      >
+                        {link.label}
+                      </Link>
+                    </div>
+                  ))}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden md:flex md:gap-12 lg:gap-16 items-start">
+          {/* Korean Symbol - Centered on Desktop */}
+          <Link href="/" className="flex-shrink-0">
             <motion.div
-              className="flex justify-center md:justify-start cursor-pointer"
-              initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="flex justify-center cursor-pointer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
               <div className="relative w-32 h-32 flex items-center justify-center">
-                <svg
-                  width="128"
-                  height="128"
-                  viewBox="0 0 128 128"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="drop-shadow-lg transition-all duration-300"
-                >
-                  {/* Outer circle - inspired by Korean flag circle */}
-                  <motion.circle
-                    cx="64"
-                    cy="64"
-                    r="56"
-                    stroke={isHovered ? "#c6d7e6" : "#899878"}
-                    strokeWidth="2"
-                    fill="none"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    whileInView={{ pathLength: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                  />
-
-                  {/* Taeguk-inspired yin-yang pattern with Korean colors */}
-                  <motion.g
-                    initial={{ opacity: 0, rotate: 0 }}
-                    whileInView={{ opacity: 1, rotate: 360 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 2, ease: "easeInOut" }}
-                  >
-                    {/* Red (upper) - 태극의 양 */}
-                    <path
-                      d="M64 16 A48 48 0 0 1 64 112 A24 24 0 0 0 64 64 A24 24 0 0 1 64 16"
-                      fill={isHovered ? "#e74c3c" : "#c44444"}
-                      fillOpacity={isHovered ? "0.3" : "0.2"}
-                      stroke={isHovered ? "#c6d7e6" : "#899878"}
-                      strokeWidth="1"
-                    />
-
-                    {/* Blue (lower) - 태극의 음 */}
-                    <path
-                      d="M64 112 A48 48 0 0 1 64 16 A24 24 0 0 0 64 64 A24 24 0 0 1 64 112"
-                      fill={isHovered ? "#3498db" : "#4466aa"}
-                      fillOpacity={isHovered ? "0.3" : "0.2"}
-                      stroke={isHovered ? "#c6d7e6" : "#899878"}
-                      strokeWidth="1"
-                    />
-                  </motion.g>
-
-                  {/* Four trigrams corners - inspired by Korean flag trigrams */}
-                  <motion.g
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, delay: 0.8 }}
-                  >
-                    {/* Top-left trigram bars */}
-                    <g transform="translate(20, 20) rotate(45, 8, 8)">
-                      <rect
-                        x="0"
-                        y="0"
-                        width="16"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="0"
-                        y="6"
-                        width="16"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="0"
-                        y="12"
-                        width="16"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                    </g>
-
-                    {/* Top-right trigram bars */}
-                    <g transform="translate(92, 20) rotate(-45, 8, 8)">
-                      <rect
-                        x="0"
-                        y="0"
-                        width="7"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="9"
-                        y="0"
-                        width="7"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="0"
-                        y="6"
-                        width="16"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="0"
-                        y="12"
-                        width="7"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="9"
-                        y="12"
-                        width="7"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                    </g>
-
-                    {/* Bottom-left trigram bars */}
-                    <g transform="translate(20, 92) rotate(135, 8, 8)">
-                      <rect
-                        x="0"
-                        y="0"
-                        width="7"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="9"
-                        y="0"
-                        width="7"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="0"
-                        y="6"
-                        width="16"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="0"
-                        y="12"
-                        width="16"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                    </g>
-
-                    {/* Bottom-right trigram bars */}
-                    <g transform="translate(92, 92) rotate(-135, 8, 8)">
-                      <rect
-                        x="0"
-                        y="0"
-                        width="16"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="0"
-                        y="6"
-                        width="7"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="9"
-                        y="6"
-                        width="7"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="0"
-                        y="12"
-                        width="16"
-                        height="2"
-                        fill={isHovered ? "#c6d7e6" : "#899878"}
-                        opacity="0.8"
-                      />
-                    </g>
-                  </motion.g>
-
-                  {/* Center decorative dots */}
-                  <motion.circle
-                    cx="64"
-                    cy="40"
-                    r="3"
-                    fill={isHovered ? "#e74c3c" : "#899878"}
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 1.2 }}
-                  />
-                  <motion.circle
-                    cx="64"
-                    cy="88"
-                    r="3"
-                    fill={isHovered ? "#3498db" : "#899878"}
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 1.3 }}
-                  />
-                </svg>
+                <KoreanSymbol
+                  isHovered={isHovered}
+                  size={128}
+                  layoutId="main-korean-symbol"
+                />
               </div>
             </motion.div>
           </Link>
 
-          {/* Links Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-4">
+          {/* Links Grid - 4 Columns on Desktop */}
+          <div className="flex-1 grid grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-3">
             {linksColumns.map((column, colIndex) => (
               <motion.div
                 key={colIndex}

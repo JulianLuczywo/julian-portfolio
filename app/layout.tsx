@@ -1,10 +1,15 @@
+"use client";
+
 import type React from "react";
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
+import Nav from "../components/Nav";
 import LinksSection from "../components/LinksSection";
 import FloatingCommandButton from "../components/FloatingCommandButton";
+import LoadingScreen from "../components/LoadingScreen";
+import { useState, useEffect } from "react";
+import { LayoutGroup } from "framer-motion";
 
 const satoshi = localFont({
   src: [
@@ -25,24 +30,45 @@ const notoSansKR = Noto_Sans_KR({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Julian Luczywo | 줄리안",
-  description: "Personal website of Julian Luczywo",
-};
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    // Simulate loading time - adjust as needed
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleLoadingComplete = () => {
+    setShowContent(true);
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${satoshi.variable} ${notoSansKR.variable} font-mono antialiased`}
       >
-        <LinksSection />
-        {children}
-        <FloatingCommandButton />
+        <LayoutGroup>
+          <LoadingScreen
+            isLoading={isLoading}
+            onComplete={handleLoadingComplete}
+          />
+          {showContent && (
+            <>
+              <LinksSection />
+              {children}
+              <FloatingCommandButton />
+            </>
+          )}
+        </LayoutGroup>
       </body>
     </html>
   );

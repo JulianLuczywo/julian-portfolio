@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import BookingModal from "./BookingModal";
 import GlobalKeyboardHandler from "./GlobalKeyboardHandler";
-import { Command as CommandIcon } from "lucide-react";
+import { Command as CommandIcon, UserRoundPlus } from "lucide-react";
 export default function FloatingCommandButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [useIsMobile, setUseIsMobile] = useState(false);
@@ -39,7 +39,9 @@ export default function FloatingCommandButton() {
       >
         <div className="flex items-center gap-2">
           {useIsMobile ? (
-            <div className="text-xs">Connect with me</div>
+            <div className="text-xs">
+              <UserRoundPlus />
+            </div>
           ) : (
             <div className="flex items-center gap-1">
               <kbd className="px-1.5 py-0.5 bg-gray-800 border border-gray-600 rounded text-xs font-mono">
