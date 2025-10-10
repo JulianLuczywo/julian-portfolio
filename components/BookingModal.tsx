@@ -48,7 +48,10 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     if (value === "calendar") {
       setSelectedOption("calendar");
     } else if (value === "email") {
-      window.open("mailto:julian@refracted.com?subject=Let's chat!", "_blank");
+      window.open(
+        "mailto:julian@refractedai.com?subject=Let's chat!",
+        "_blank"
+      );
       onClose();
     } else if (value === "linkedin") {
       window.open("https://linkedin.com/in/julianluczywo", "_blank");
@@ -103,7 +106,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               <div className="p-4">
                 <div className="bg-gray-900/50 border border-gray-800 rounded-lg min-h-[500px] flex items-center justify-center">
                   <iframe
-                    src="https://calendar.notion.so/meet/julianluczywo/coding"
+                    src="https://calendar.notion.so/meet/jluczywo/q25ij4p5z"
                     width="100%"
                     height="500"
                     frameBorder="0"
@@ -156,7 +159,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     <div className="flex-1">
                       <div className="text-white font-medium">Send Email</div>
                       <div className="text-gray-400 text-sm">
-                        julian@refracted.com
+                        julian@refractedai.com
                       </div>
                     </div>
                     <ExternalLink className="w-4 h-4 text-gray-500" />

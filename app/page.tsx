@@ -39,10 +39,10 @@ export default function HomePage() {
         {/* Header */}
         <div className="mb-16">
           <h1 className="text-4xl font-bold text-white mb-4">
-            <TypewriterText text="Julian Luczywo" />
+            <TypewriterText text="Julian (줄리안)" />
           </h1>
 
-          <div className="flex items-center gap-2 text-gray-400 mb-2">
+          {/* <div className="flex items-center gap-2 text-gray-400 mb-2">
             <MapPin className="w-4 h-4" />
             <span>Budapest, Hungary</span>
           </div>
@@ -50,41 +50,20 @@ export default function HomePage() {
           <div className="flex items-center gap-2 text-gray-400 mb-6">
             <Briefcase className="w-4 h-4" />
             <span>Founder/CTO @ RefractedAI</span>
-          </div>
+          </div> */}
 
           <p className="text-gray-300 leading-relaxed">
-            i'm a 23 year old developer living in budapest, hungary. i'm half
-            polish and half korean. i love building and solving problems. i
-            enjoy working on full-stack web applications, creating meaningful
-            digital experiences or optimising businesses. if i'm not coding then
-            i'm probably obsessing over tea/coffee, music, or playing
-            golf/padel.
+            “Do not let your fire go out, spark by irreplaceable spark in the
+            hopeless swamps of the not-quite, the not-yet, and the not-at-all.
+            Do not let the hero in your soul perish in lonely frustration for
+            the life you deserved and have never been able to reach. The world
+            you desire can be won. It exists.. it is real.. it is possible..
+            it's yours.”
+            <br />
+            <br />
+            <span>― Ayn Rand, Atlas Shrugged </span>
           </p>
         </div>
-
-        {/* Tech Stack */}
-        {/* <section className="mb-16">
-          <h2 className="text-[#899878] text-xl font-bold mb-6">
-            * tech stack
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            {[
-              "typescript",
-              "tailwindcss",
-              "react",
-              "node.js",
-              "postgresql",
-              "python",
-            ].map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 bg-gray-900/50 border border-gray-800 rounded-full text-sm text-gray-300 hover:border-gray-700 transition-colors"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </section> */}
 
         {/* Work Section */}
         <section className="mb-16">
